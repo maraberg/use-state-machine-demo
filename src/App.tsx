@@ -14,6 +14,7 @@ function getColor(state: TrafficLightColor, color: TrafficLightColor): TrafficLi
 function App() {
 
   const [state, send] = useStateMachine({
+    // verbose: true,  // Uncomment to trigger logging
     initial: 'red',
     context: { previous: 'red' },
     schema: {
