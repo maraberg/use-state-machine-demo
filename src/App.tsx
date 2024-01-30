@@ -7,6 +7,10 @@ function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function getColor(state: TrafficLightColor, color: TrafficLightColor): TrafficLightColor | 'grey' {
+  return state === color ? color : 'grey';
+}
+
 function App() {
 
   const [state, send] = useStateMachine({
@@ -38,7 +42,9 @@ function App() {
   return (
     <>
       <h1>useTrafficLight</h1>
-      <div className='circle' style={{"backgroundColor": state.value}}/>
+      <div className='circle' style={{"backgroundColor": getColor(state.value, 'red')}}/>
+      <div className='circle' style={{"backgroundColor": getColor(state.value , 'yellow')}}/>
+      <div className='circle' style={{"backgroundColor": getColor(state.value, 'green')}}/>
       <div className="card">
         <button onClick={() => send("SWITCH")}>
           Light is: {state.value}
