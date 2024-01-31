@@ -22,12 +22,15 @@ function App() {
     },
     states: {
       red: {
+        effect: ({setContext}) => {
+          setContext(() => ({previous: "red"}))
+        }, 
         on: { SWITCH: 'yellow' },
       },
       yellow: {
         effect: ({send, context}) => {
           const transition = async () => {
-            await sleep(1000);
+            await sleep(2000);
             context.previous === "red" ? send("SWITCH_GREEN") : send("SWITCH_RED");
           }
           void transition();
@@ -35,6 +38,9 @@ function App() {
         on: { SWITCH_GREEN: 'green', SWITCH_RED: 'red' },
       },
       green: {
+        effect: ({setContext}) => {
+          setContext(() => ({previous: "green"}))
+        },
         on: { SWITCH: 'yellow' },
       }
       },
